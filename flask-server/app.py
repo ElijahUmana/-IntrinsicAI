@@ -1,7 +1,8 @@
 from flask import Flask
 from flask import Flask, request, jsonify
 from dotenv import load_dotenv
-from utils import gpt4_project_analysis
+from utils import gpt4_project_analysis, generate_course_outline
+
 
 load_dotenv()
 app = Flask(__name__)
@@ -21,9 +22,11 @@ def submit_project():
     feasible, suggestion = analyze_project_with_gpt(project_description)
     
     if feasible:
-        return jsonify({"status": "success", "message": "Project is feasible with HTML/CSS!", "description": project_description})
+        course_outline = generate_course_outline(project_description)
+        return jsonify({"status": "success", "message": "Project is feasible with HTML/CSS!", "description": project_description, "course_outline": course_outline})
     else:
-        return jsonify({"status": "alternate", "message": "Here's a similar project feasible with HTML/CSS:", "suggestion": suggestion})
+        course_outline = generate_course_outline(suggestion)
+        return jsonify({"status": "alternate", "message": "Here's a similar project feasible with HTML/CSS:", "suggestion": suggestion, "course_outline": course_outline})
 
 def analyze_project_with_gpt(description):
     feasible, suggestion = gpt4_project_analysis(description)
