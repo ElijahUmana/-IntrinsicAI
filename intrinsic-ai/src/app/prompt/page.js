@@ -7,7 +7,8 @@ import {Form, FloatingLabel, Button} from 'react-bootstrap/';
 export default function Prompt() {
 
     function handleClick(){
-        var data = //get from form
+        var data = new FormData();
+        data.append()
         fetch("URL", {method: "POST", body: data, headers: {}})
     }
 
