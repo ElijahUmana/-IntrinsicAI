@@ -5,6 +5,12 @@ import {Form, FloatingLabel, Button} from 'react-bootstrap/';
 
 
 export default function Prompt() {
+
+    function handleClick(){
+        var data = //get from form
+        fetch("URL", {method: "POST", body: data, headers: {}})
+    }
+
     return (
         <div>
             <Form action="/tutorial" class="inline text-center">
@@ -17,7 +23,7 @@ export default function Prompt() {
                 >
                     <Form.Control as="textarea" placeholder="I want to learn how to make a website about..." />
                 </FloatingLabel>
-                <Button variant="primary" type="submit">Submit</Button>
+                <Button variant="primary" type="submit" onClick={handleClick} >Submit</Button>
             </Form>
         </div>
   )
