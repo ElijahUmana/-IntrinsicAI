@@ -29,7 +29,35 @@ def gpt4_project_analysis(description):
         if 'yes' in answer or 'feasible' in answer:
             return True, None
         else:
-            return False, "Suggest a similar project that can be done with HTML and CSS."
+            suggestion = gpt4_project_suggestion(description)
+            return False, suggestion
     else:
         print(f"Unexpected API response for description: {description}")
         return False, "Error analyzing project feasibility"
+
+def gpt4_project_suggestion(description):
+    headers = {
+        "Authorization": f"Bearer {config.OPENAI_API_KEY}",
+    }
+
+    messages = [
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": f"Suggest a project similar to '{description}' that can be done with HTML and CSS."}
+    ]
+
+    data = {
+        "model": "gpt-4",
+        "messages": messages
+    }
+
+    response = requests.post(ENDPOINT, headers=headers, json=data)
+    response_data = response.json()
+
+    # Extracting the suggestion from the response
+    if 'choices' in response_data:
+        suggestion = response_data['choices'][0]['message']['content'].strip()
+        return suggestion
+    else:
+        print(f"Unexpected API response for description: {description}")
+        return "Error generating project suggestion"
+    
