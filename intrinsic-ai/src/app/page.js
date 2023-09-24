@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Stack from 'react-bootstrap/Stack';
+import postData from './utils/postData';
 
 function getData() {
   // const res = await fetch('https://api.kanye.rest')
@@ -20,23 +21,7 @@ function getData() {
  
   // return res.JSON;
 }
-async function postData(url = "", data = {}) {
-  // Default options are marked with *
-  const response = await fetch(url, {
-    method: "POST", // *GET, POST, PUT, DELETE, etc.
-    mode: "cors", // no-cors, *cors, same-origin
-    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-    credentials: "same-origin", // include, *same-origin, omit
-    headers: {
-      "Content-Type": "application/json",
-      // 'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    redirect: "follow", // manual, *follow, error
-    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-    body: JSON.stringify(data), // body data type must match "Content-Type" header
-  });
-  return response.json(); // parses JSON response into native JavaScript objects
-}
+
 export default function Home() {
 
 const url = 'http://127.0.0.1:5000/hello';
@@ -45,13 +30,11 @@ fetch(url)
   .then(data => {
     console.log("IT IS " + data);
   });
-
-  postData("http://127.0.0.1:5000/submit_project", { description: 'cat website' }).then((data) => {
-  console.log(data); // JSON data parsed by `data.json()` call
-});
   return (
     <div class="text-center" > 
-      <h1>Welcome to Intrinsic.ai!</h1>   
+      <h1>Intrinsic.ai</h1>  
+      <p><em>YOU learn what YOU want!</em></p>
+      <padding-top> </padding-top> 
       <Stack gap={3}>
         <div className="p-2">
         <h2>What is Intrinsic.ai?</h2>
@@ -59,7 +42,7 @@ fetch(url)
         </div>
         <div className="p-2">
         <h2> How do I use it?</h2>
-      <p>Intrinsic.ai is incredibly simple to use! Just click "Start Learning!" to head over to our tutorial page, and let our AI_powered platform know what you're interested in creating. Remember, your creativity is your only limit! Intrinsic.ai will give you feedback on your ideas, and then once your project is well-defined, you'll be taken to our on-the-spot generated lessons, where you'll learn step-by-step how to create the website of your dreams, before finally putting your skills to the test at the end. </p>
+      <p>Intrinsic.ai is incredibly simple to use! Just click "Start Learning!" to head over to our tutorial page, and let our AI-powered platform know what you're interested in creating. Remember, your creativity is your only limit! Intrinsic.ai will give you feedback on your ideas, and then once your project is well-defined, you'll be taken to our on-the-spot generated lessons, where you'll learn step-by-step how to create the website of your dreams, before finally putting your skills to the test at the end. </p>
       
         </div>
       </Stack>

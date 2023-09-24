@@ -1,6 +1,6 @@
 import requests
 import config
-
+import _json as JSON
 ENDPOINT = "https://api.openai.com/v1/chat/completions"
 
 def gpt4_project_analysis(description):
@@ -18,7 +18,10 @@ def gpt4_project_analysis(description):
         "messages": messages
     }
 
+    print("BEFORE")
     response = requests.post(ENDPOINT, headers=headers, json=data)
+    print("AFTER")
+    print(response.json())
     if 'choices' in response.json():
         answer = response.json()['choices'][0]['message']['content'].strip().lower()
         

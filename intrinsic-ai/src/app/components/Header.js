@@ -8,12 +8,12 @@ function Header() {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="/">Intrinsic AI</Navbar.Brand>
+        <Navbar.Brand href="/">Intrinsic.ai</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="/prompt">Prompt</Nav.Link>
-            <Nav.Link href="/tutorial">Tutorial</Nav.Link>
+            <Nav.Link href="/lessons">Tutorial</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
