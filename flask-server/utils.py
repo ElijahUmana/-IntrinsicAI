@@ -126,3 +126,26 @@ def check_code_implementation(user_code, todo_list):
             return False
     else:
         return False
+    
+
+def generate_todo_list(project_description):
+    headers = {
+        "Authorization": f"Bearer {config.OPENAI_API_KEY}",
+    }
+
+    messages = [
+        {"role": "system", "content": "You are a web tutor."},
+        {"role": "user", "content": f"Generate a to-do list for the project: '{project_description}' that highlights the key HTML and CSS tasks needed."}
+    ]
+
+    data = {
+        "model": "gpt-4",
+        "messages": messages
+    }
+
+    response = requests.post(ENDPOINT, headers=headers, json=data)
+    if 'choices' in response.json():
+        todo_list_content = response.json()['choices'][0]['message']['content'].strip()
+        return todo_list_content
+    else:
+        return f"Error generating to-do list for {project_description}"

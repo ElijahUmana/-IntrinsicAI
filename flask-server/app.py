@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, session
 from dotenv import load_dotenv
-from utils import gpt4_project_analysis, generate_course_outline, generate_tutorial_content, check_code_implementation
+from utils import (gpt4_project_analysis, generate_course_outline, 
+                   generate_tutorial_content, check_code_implementation, generate_todo_list)
 from flask_cors import CORS, cross_origin
 
 load_dotenv()
@@ -57,8 +58,10 @@ def next_tutorial():
         session['current_page'] = current_page + 1
         return jsonify({"topic": next_topic, "content": tutorial_content})
     else:
-        return jsonify({"status": "end_of_tutorials"})
-    
+        # When we reach the end of tutorials, we generate the to-do list.
+        todo_list = generate_todo_list(session.get('project_description'))
+        session['todo_list'] = todo_list
+        return jsonify({"status": "end_of_tutorials", "todo_list": todo_list})
 
 @app.route('/submit_implementation', methods=['POST'])
 def submit_implementation():
@@ -74,7 +77,6 @@ def submit_implementation():
         return jsonify({"status": "passed", "message": "Congratulations! Your implementation is correct."})
     else:
         return jsonify({"status": "failed", "message": "Your implementation doesn't match the expected output. Please try again."})
-
 
 if __name__ == '__main__':
     app.run(debug=True)
