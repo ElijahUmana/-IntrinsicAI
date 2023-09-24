@@ -36,15 +36,11 @@ def submit_project():
         session['current_page'] = 1
         return jsonify({"status": "alternate", "message": "Here's a similar project feasible with HTML/CSS:", "suggestion": suggestion, "course_outline": course_outline, "content": first_tutorial_content})
 
-@app.route('/get_outline', methods=['GET'])
-def get_outline():
-    outline = session.get('course_outline')
-    return jsonify(course_outline=outline)
-
 @app.route('/next_tutorial', methods=['GET'])
 def next_tutorial():
     current_page = session.get('current_page', 1)
     course_outline = session.get('course_outline')
+    print("OUTLINE IS "+course_outline)
     previous_topics = course_outline[:current_page]   # Get all the topics before the current page
     
     if current_page < len(course_outline):
