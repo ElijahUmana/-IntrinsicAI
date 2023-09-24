@@ -19,7 +19,7 @@ def hello_world():
 def submit_project():
     project_description = request.json.get('description')
     feasible, suggestion = gpt4_project_analysis(project_description)
-
+    print("Feasible "+str(feasible))
     if feasible:
         course_outline = generate_course_outline(project_description)
         session['course_outline'] = course_outline

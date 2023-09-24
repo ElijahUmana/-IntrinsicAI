@@ -37,9 +37,6 @@ export default function Prompt() {
             console.log(data); // JSON data parsed by `data.json()` call
             setData(data);
             console.log("here is the description: " + data.description);
-            const course_summary = data.course_outline;
-            console.log(course_summary);
-            console.log(('http://127.0.0.1:5000/get_outline'));
         });
     }
 
