@@ -47,12 +47,21 @@ def next_tutorial():
         tutorial_content = generate_tutorial_content(next_topic, session.get('project_description'), previous_topics, course_outline)
         
         session['current_page'] = current_page + 1
-        return jsonify({"topic": next_topic, "content": tutorial_content})
+        return jsonify({
+            "topic": next_topic, 
+            "content": tutorial_content, 
+            "course_outline": course_outline  # Including the course_outline in the response
+        })
     else:
         # When we reach the end of tutorials, we generate the to-do list.
         todo_list = generate_todo_list(session.get('project_description'))
         session['todo_list'] = todo_list
-        return jsonify({"status": "end_of_tutorials", "todo_list": todo_list})
+        return jsonify({
+            "status": "end_of_tutorials", 
+            "todo_list": todo_list,
+            "course_outline": course_outline  # Including the course_outline in the response
+        })
+
 
 @app.route('/submit_implementation', methods=['POST'])
 def submit_implementation():
