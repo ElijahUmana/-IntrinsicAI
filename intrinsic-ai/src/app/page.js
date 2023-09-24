@@ -1,13 +1,54 @@
 "use client"
-import Image from 'next/image'
 import styles from './page.module.css'
-import Link from 'next/link';
 import Header from './components/Header';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Stack from 'react-bootstrap/Stack';
 
+function getData() {
+  // const res = await fetch('https://api.kanye.rest')
+  
+  // const res = fetch('http://127.0.0.1:5000/hello',
+  // )
+  // // The return value is *not* serialized
+  // // You can return Date, Map, Set, etc.
+ 
+  // if (!res.ok) {
+  //   // This will activate the closest `error.js` Error Boundary
+  //   throw new Error('Failed to fetch data')
+  // }
+ 
+  // return res.JSON;
+}
+async function postData(url = "", data = {}) {
+  // Default options are marked with *
+  const response = await fetch(url, {
+    method: "POST", // *GET, POST, PUT, DELETE, etc.
+    mode: "cors", // no-cors, *cors, same-origin
+    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: "same-origin", // include, *same-origin, omit
+    headers: {
+      "Content-Type": "application/json",
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: "follow", // manual, *follow, error
+    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: JSON.stringify(data), // body data type must match "Content-Type" header
+  });
+  return response.json(); // parses JSON response into native JavaScript objects
+}
 export default function Home() {
+
+const url = 'http://127.0.0.1:5000/hello';
+fetch(url)
+  .then(res => res.text())  // convert the response body to a string
+  .then(data => {
+    console.log("IT IS " + data);
+  });
+
+  postData("http://127.0.0.1:5000/submit_project", { description: 'cat website' }).then((data) => {
+  console.log(data); // JSON data parsed by `data.json()` call
+});
   return (
     <div class="text-center" > 
       <h1>Welcome to Intrinsic.ai!</h1>   

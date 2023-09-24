@@ -1,18 +1,22 @@
 from flask import Flask, request, jsonify, session
 from dotenv import load_dotenv
 from utils import gpt4_project_analysis, generate_course_outline, generate_tutorial_content, check_code_implementation
+from flask_cors import CORS, cross_origin
 
 load_dotenv()
 app = Flask(__name__)
+CORS(app, support_credentials=True)
 
 app.config.from_object('config')
 app.config['SECRET_KEY'] = 'your_secret_key_here'  # Ensure this is a strong, secret key!
 
-@app.route('/')
+@app.route('/hello')
+@cross_origin(supports_credentials=True)
 def hello_world():
     return "Hello, World!"
 
 @app.route('/submit_project', methods=['POST'])
+@cross_origin(supports_credentials=True)
 def submit_project():
     project_description = request.json.get('description')
     feasible, suggestion = gpt4_project_analysis(project_description)
