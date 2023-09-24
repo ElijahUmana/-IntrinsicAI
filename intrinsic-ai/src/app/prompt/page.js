@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation'
 import Tutorial from '../lessons/page';
 import Link from 'next/link';
 import fetchCourseOutline from '../utils/getOutline';
+import Spinner from 'react-bootstrap/Spinner';
 
 const lessons = [];
 const generateLessons = (course_outline) => {
@@ -27,9 +28,11 @@ const generateLessons = (course_outline) => {
 
 export default function Prompt() {
     const [data, setData] = useState(null);
+    const [buttonPressed, setButtonPressed] = useState(false);
     const router = useRouter();
 
     function handleClick() {
+        setButtonPressed(true);
         const formvar = document.forms.promptform.prompttext.value;
         console.log("here is the info: " + formvar);
 
@@ -40,6 +43,7 @@ export default function Prompt() {
             const course_summary = data.course_outline;
             console.log(course_summary);
             console.log(('http://127.0.0.1:5000/get_outline'));
+            setButtonPressed(false);
         });
     }
 
@@ -58,21 +62,20 @@ export default function Prompt() {
                 </FloatingLabel>
                 <Button type="button" onClick={handleClick} >Submit</Button>
             </Form>
-            {data && (
-                <>
-                    <h1>{data.description || ''}</h1>
-                    <p>{data.message || ''}</p>
-                    <p>{data.suggestion || ''}</p>
-                    <h2>Here is the course outline:</h2>
-                    {data.course_outline && data.course_outline.map(item => (
-                        <p key={item}>{item}</p>
-                    ))}
-                    {/* {data.course_outline = ["one", "two", "three"]} */}
-                    <Link href="/lessons"> 
-                        <Button variant="success">Continue</Button>{' '}
-                    </Link>
-                </>
-            )}
+            {buttonPressed ? (data ? (
+            <>
+                <h1>{data.description || ''}</h1>
+                <p>{data.message || ''}</p>
+                <p>{data.suggestion || ''}</p>
+                <h2>Here is the course outline:</h2>
+                {data.course_outline && data.course_outline.map(item => (
+                    <p key={item}>{item}</p>
+                ))}
+                <Link href="/lessons"> 
+                    <Button variant="success">Continue</Button>{' '}
+                </Link>
+            </>
+        ) : <Spinner animation="grow"/>) : null}
         </div>
     )
 }
