@@ -75,14 +75,19 @@ def generate_course_outline(project_description):
         return ["Error generating course outline"]
 
 # Add the generate_tutorial_content function here. The exact content of this function depends on how you plan to implement it, which we haven't detailed yet.
-def generate_tutorial_content(topic, project_description):
+def generate_tutorial_content(topic, project_description, previous_topics, course_outline):
     headers = {
         "Authorization": f"Bearer {config.OPENAI_API_KEY}",
     }
 
+    previous_content = "\n".join([f"Previously, you learned about '{t}'." for t in previous_topics])
+    upcoming_topics_index = course_outline.index(topic) + 1
+    upcoming_topics = course_outline[upcoming_topics_index:]
+    upcoming_content = "\n".join([f"In the future, you will learn about '{t}'." for t in upcoming_topics])
+
     messages = [
         {"role": "system", "content": "You are a web tutor."},
-        {"role": "user", "content": f"Generate a tutorial on '{topic}' relevant to a project like '{project_description}'."}
+        {"role": "user", "content": f"here's the previous content that was generated on the previous slide: {previous_content}, and here's the contents we'd cover on future slides not this one: {upcoming_content}.  Now, generate a tutorial on '{topic}' relevant to a project like '{project_description}' without touching on the upcoming topics."}
     ]
 
     data = {
