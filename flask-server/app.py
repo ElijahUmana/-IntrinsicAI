@@ -19,7 +19,7 @@ def hello_world():
 def submit_project():
     project_description = request.json.get('description')
     feasible, suggestion = gpt4_project_analysis(project_description)
-    
+
     if feasible:
         course_outline = generate_course_outline(project_description)
         session['course_outline'] = course_outline
@@ -35,6 +35,11 @@ def submit_project():
         first_tutorial_content = generate_tutorial_content(course_outline[0], suggestion, [], course_outline)
         session['current_page'] = 1
         return jsonify({"status": "alternate", "message": "Here's a similar project feasible with HTML/CSS:", "suggestion": suggestion, "course_outline": course_outline, "content": first_tutorial_content})
+
+@app.route('/get_outline', methods=['GET'])
+def get_outline():
+    outline = session.get('course_outline')
+    return jsonify(course_outline=outline)
 
 @app.route('/next_tutorial', methods=['GET'])
 def next_tutorial():
@@ -66,7 +71,7 @@ def next_tutorial():
 @app.route('/submit_implementation', methods=['POST'])
 def submit_implementation():
     user_code = request.json.get('code')
-    todo_list = session.get('todo_list')  # assuming we've stored the generated to-do list in the session
+    todo_list = generate_todo_list("webpage of cats") #session.get('todo_list')  # assuming we've stored the generated to-do list in the session
 
     if not todo_list:
         return jsonify({"status": "error", "message": "To-do list not found!"})
