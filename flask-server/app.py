@@ -12,7 +12,6 @@ app.config.from_object('config')
 app.config['SECRET_KEY'] = 'your_secret_key_here'  # Ensure this is a strong, secret key!
 
 @app.route('/hello')
-@cross_origin(supports_credentials=True)
 def hello_world():
     return "Hello, World!"
 
@@ -25,10 +24,17 @@ def submit_project():
         course_outline = generate_course_outline(project_description)
         session['course_outline'] = course_outline
         session['project_description'] = project_description
-        return jsonify({"status": "success", "message": "Project is feasible with HTML/CSS!", "description": project_description, "course_outline": course_outline})
+        first_tutorial_content = generate_tutorial_content(course_outline[0], project_description, [], course_outline)
+        session['current_page'] = 1
+        return jsonify({"status": "success", "message": "Project is feasible with HTML/CSS!", "description": project_description, "course_outline": course_outline, "content": first_tutorial_content})
+    
     else:
         course_outline = generate_course_outline(suggestion)
-        return jsonify({"status": "alternate", "message": "Here's a similar project feasible with HTML/CSS:", "suggestion": suggestion, "course_outline": course_outline})
+        session['course_outline'] = course_outline
+        session['project_description'] = suggestion   # Use the new suggestion as the project_description
+        first_tutorial_content = generate_tutorial_content(course_outline[0], suggestion, [], course_outline)
+        session['current_page'] = 1
+        return jsonify({"status": "alternate", "message": "Here's a similar project feasible with HTML/CSS:", "suggestion": suggestion, "course_outline": course_outline, "content": first_tutorial_content})
 
 @app.route('/get_outline', methods=['GET'])
 def get_outline():
@@ -37,12 +43,13 @@ def get_outline():
 
 @app.route('/next_tutorial', methods=['GET'])
 def next_tutorial():
-    current_page = session.get('current_page', 0)
-    course_outline = session.get('course_outline') # array of lesson topics
+    current_page = session.get('current_page', 1)
+    course_outline = session.get('course_outline')
+    previous_topics = course_outline[:current_page]   # Get all the topics before the current page
     
     if current_page < len(course_outline):
         next_topic = course_outline[current_page]
-        tutorial_content = generate_tutorial_content(next_topic, session.get('project_description'))
+        tutorial_content = generate_tutorial_content(next_topic, session.get('project_description'), previous_topics, course_outline)
         
         session['current_page'] = current_page + 1
         return jsonify({"topic": next_topic, "content": tutorial_content})
