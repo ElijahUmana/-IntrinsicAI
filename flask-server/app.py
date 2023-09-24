@@ -48,7 +48,7 @@ def submit_project():
 @app.route('/next_tutorial', methods=['GET'])
 def next_tutorial():
     current_page = session.get('current_page', 0)
-    course_outline = session.get('course_outline')
+    course_outline = session.get('course_outline') # array of lesson topics
     
     if current_page < len(course_outline):
         next_topic = course_outline[current_page]
