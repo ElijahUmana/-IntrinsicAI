@@ -16,14 +16,15 @@ export default function Implementation(){
     }
 
     return(
-        <div>
-            <div >
-                {data == null ? "Loading..." : data.todo_list }
-            </div>
-            <div >
-                <form name="textinput">
-                    <textarea name="codeinput" rows="5" cols="33"></textarea>
-                    <button type="button" onClick={handleSubmission}>Submit</button>
+        <div >
+            <div style={{width: "50%", display: "inline-block", padding: "10px"}}>
+                {data == null ? "Your feedback is loading..." : data.todo_list }
+            </div >
+            <div style={{width: "50%", display: "inline-block"}}>
+                <form name="textinput"> 
+                    <h4>Enter your code here:</h4>
+                    <textarea name="codeinput" style={{ width: "100%", padding: "10px" }}></textarea>
+                    <button type="button" style={{ background: "blue", border: "none", color: "white", borderRadius: "5px", padding: "5px", float: "right", margin: "10px" }} onClick={handleSubmission}>Submit</button>
                 </form>
             </div>
         </div>

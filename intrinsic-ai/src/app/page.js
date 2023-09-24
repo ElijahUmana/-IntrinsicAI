@@ -32,7 +32,9 @@ fetch(url)
   });
   return (
     <div class="text-center" > 
-      <h1>Welcome to Intrinsic.ai!</h1>   
+      <h1>Intrinsic.ai</h1>  
+      <p><em>YOU learn what YOU want!</em></p>
+      <padding-top> </padding-top> 
       <Stack gap={3}>
         <div className="p-2">
         <h2>What is Intrinsic.ai?</h2>
@@ -40,7 +42,7 @@ fetch(url)
         </div>
         <div className="p-2">
         <h2> How do I use it?</h2>
-      <p>Intrinsic.ai is incredibly simple to use! Just click "Start Learning!" to head over to our tutorial page, and let our AI_powered platform know what you're interested in creating. Remember, your creativity is your only limit! Intrinsic.ai will give you feedback on your ideas, and then once your project is well-defined, you'll be taken to our on-the-spot generated lessons, where you'll learn step-by-step how to create the website of your dreams, before finally putting your skills to the test at the end. </p>
+      <p>Intrinsic.ai is incredibly simple to use! Just click "Start Learning!" to head over to our tutorial page, and let our AI-powered platform know what you're interested in creating. Remember, your creativity is your only limit! Intrinsic.ai will give you feedback on your ideas, and then once your project is well-defined, you'll be taken to our on-the-spot generated lessons, where you'll learn step-by-step how to create the website of your dreams, before finally putting your skills to the test at the end. </p>
       
         </div>
       </Stack>

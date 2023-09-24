@@ -5,4 +5,4 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Configurations
-OPENAI_API_KEY = "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"
+OPENAI_API_KEY = "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"
