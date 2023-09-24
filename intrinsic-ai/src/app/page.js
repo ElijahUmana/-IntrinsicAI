@@ -37,6 +37,7 @@ async function postData(url = "", data = {}) {
   });
   return response.json(); // parses JSON response into native JavaScript objects
 }
+
 export default function Home() {
 
 const url = 'http://127.0.0.1:5000/hello';
@@ -46,9 +47,9 @@ fetch(url)
     console.log("IT IS " + data);
   });
 
-  postData("http://127.0.0.1:5000/submit_project", { description: 'cat website' }).then((data) => {
-  console.log(data); // JSON data parsed by `data.json()` call
-});
+  // postData("http://127.0.0.1:5000/submit_project", { description: 'cat website with pictures of cats and their names' }).then((data) => {
+  // console.log(data); // JSON data parsed by `data.json()` call
+// });
   return (
     <div class="text-center" > 
       <h1>Welcome to Intrinsic.ai!</h1>   
