@@ -1,6 +1,5 @@
-# utils.py
 import requests
-import config  # Import the configurations
+import config
 
 ENDPOINT = "https://api.openai.com/v1/chat/completions"
 
@@ -20,11 +19,8 @@ def gpt4_project_analysis(description):
     }
 
     response = requests.post(ENDPOINT, headers=headers, json=data)
-    response_data = response.json()
-
-    # Extracting the answer from the response
-    if 'choices' in response_data:
-        answer = response_data['choices'][0]['message']['content'].strip().lower()
+    if 'choices' in response.json():
+        answer = response.json()['choices'][0]['message']['content'].strip().lower()
         
         if 'yes' in answer or 'feasible' in answer:
             return True, None
@@ -32,9 +28,7 @@ def gpt4_project_analysis(description):
             suggestion = gpt4_project_suggestion(description)
             return False, suggestion
     else:
-        print(f"Unexpected API response for description: {description}")
         return False, "Error analyzing project feasibility"
-
 
 def gpt4_project_suggestion(description):
     headers = {
@@ -43,7 +37,7 @@ def gpt4_project_suggestion(description):
 
     messages = [
         {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": f"Suggest a project similar to '{description}' that can be done with HTML and CSS."}
+        {"role": "user", "content": f"Suggest in one sentence a project similar to '{description}' that can be done with HTML and CSS."}
     ]
 
     data = {
@@ -52,16 +46,11 @@ def gpt4_project_suggestion(description):
     }
 
     response = requests.post(ENDPOINT, headers=headers, json=data)
-    response_data = response.json()
-
-    # Extracting the suggestion from the response
-    if 'choices' in response_data:
-        suggestion = response_data['choices'][0]['message']['content'].strip()
+    if 'choices' in response.json():
+        suggestion = response.json()['choices'][0]['message']['content'].strip()
         return suggestion
     else:
-        print(f"Unexpected API response for description: {description}")
         return "Error generating project suggestion"
-    
 
 def generate_course_outline(project_description):
     headers = {
@@ -69,8 +58,8 @@ def generate_course_outline(project_description):
     }
 
     messages = [
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": f"Generate a course outline for creating a project similar to '{project_description}' using HTML and CSS."}
+        {"role": "system", "content": "You are a tutor."},
+        {"role": "user", "content": f"Generate a 6 list course outline to teach HTML in a way that is similar to the user's desired final project. The outlines should just be one-liners, and should be created in a way that emphasizes the parts needed to build this user's desired project: '{project_description}'"}
     ]
 
     data = {
@@ -79,14 +68,58 @@ def generate_course_outline(project_description):
     }
 
     response = requests.post(ENDPOINT, headers=headers, json=data)
-    response_data = response.json()
-
-    # Extracting the course outline from the response
-    if 'choices' in response_data:
-        outline = response_data['choices'][0]['message']['content'].strip().split('\n')
+    if 'choices' in response.json():
+        outline = response.json()['choices'][0]['message']['content'].strip().split('\n')
         return outline
     else:
-        print(f"Unexpected API response for description: {project_description}")
         return ["Error generating course outline"]
 
-    
+# Add the generate_tutorial_content function here. The exact content of this function depends on how you plan to implement it, which we haven't detailed yet.
+def generate_tutorial_content(topic, project_description):
+    headers = {
+        "Authorization": f"Bearer {config.OPENAI_API_KEY}",
+    }
+
+    messages = [
+        {"role": "system", "content": "You are a web tutor."},
+        {"role": "user", "content": f"Generate a tutorial on '{topic}' relevant to a project like '{project_description}'."}
+    ]
+
+    data = {
+        "model": "gpt-4",
+        "messages": messages
+    }
+
+    response = requests.post(ENDPOINT, headers=headers, json=data)
+    if 'choices' in response.json():
+        tutorial_content = response.json()['choices'][0]['message']['content'].strip()
+        return tutorial_content
+    else:
+        return f"Error generating content for {topic}"
+
+
+def check_code_implementation(user_code, todo_list):
+    headers = {
+        "Authorization": f"Bearer {config.OPENAI_API_KEY}",
+    }
+
+    messages = [
+        {"role": "system", "content": "You are a web development teacher."},
+        {"role": "user", "content": f"Here is my HTML code based on the instructions '{todo_list}': {user_code}. Is it correct?"}
+    ]
+
+    data = {
+        "model": "gpt-4",
+        "messages": messages
+    }
+
+    response = requests.post(ENDPOINT, headers=headers, json=data)
+    if 'choices' in response.json():
+        answer = response.json()['choices'][0]['message']['content'].strip().lower()
+        
+        if 'correct' in answer or 'right' in answer:
+            return True
+        else:
+            return False
+    else:
+        return False
