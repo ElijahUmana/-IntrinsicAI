@@ -1,12 +1,8 @@
 from flask import Flask, request, jsonify, session
 from dotenv import load_dotenv
-<<<<<<< HEAD
 from utils import (gpt4_project_analysis, generate_course_outline, 
                    generate_tutorial_content, check_code_implementation, generate_todo_list)
-=======
-from utils import gpt4_project_analysis, generate_course_outline, generate_tutorial_content, check_code_implementation
 from flask_cors import CORS, cross_origin
->>>>>>> dd3829d772ef95e70ea59e47c33104ad4d725f95
 
 load_dotenv()
 app = Flask(__name__)
