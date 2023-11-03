@@ -36,7 +36,8 @@ Given the hackathon's time constraints, we've focused IntrinsicAI on HTML and CS
 
 For a glimpse into the IntrinsicAI experience, watch our app demo here:
 
-[![IntrinsicAI Demo](http://img.youtube.com/vi/plPmIp5yiPQ/0.jpg)](https://www.youtube.com/watch?v=plPmIp5yiPQ&t=74s "IntrinsicAI - Personalized Learning Experience")
+[![IntrinsicAI Demo](http://img.youtube.com/vi/plPmIp5yiPQ/0.jpg)](https://www.youtube.com/watch?v=plPmIp5yiPQ "IntrinsicAI - Personalized Learning Experience")
+
 
 ## Getting Started
 
