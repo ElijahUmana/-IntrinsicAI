@@ -6,6 +6,14 @@ In a digital era brimming with information, the quest for knowledge can often fe
 
 IntrinsicAI harnesses the power of Generative AI to curate personalized, project-based learning experiences. By combining a user's project idea with the technical realms of HTML and CSS, we create a unique learning pathway for each user. This pathway is tailored to guide learners to the successful completion of their project, ensuring that the process remains engaging and motivation stays high.
 
+
+## Demo
+
+For a glimpse into the IntrinsicAI experience, watch our app demo here! :
+
+[![IntrinsicAI Demo](http://img.youtube.com/vi/plPmIp5yiPQ/0.jpg)](https://www.youtube.com/watch?v=plPmIp5yiPQ "IntrinsicAI - Personalized Learning Experience")
+
+
 ### How It Works
 
 1. **Submit Your Project Idea:** Users start by sharing what they're passionate about building.
@@ -31,12 +39,6 @@ Given the hackathon's time constraints, we've focused IntrinsicAI on HTML and CS
 - **Code Implementation Checks:** Compares user's code against the project goals.
 - **Project-based Learning:** Focuses on completion of real-world projects.
 - **Personalization:** Adapts to each individual's project vision and pace.
-
-## Demo
-
-For a glimpse into the IntrinsicAI experience, watch our app demo here! :
-
-[![IntrinsicAI Demo](http://img.youtube.com/vi/plPmIp5yiPQ/0.jpg)](https://www.youtube.com/watch?v=plPmIp5yiPQ "IntrinsicAI - Personalized Learning Experience")
 
 
 ## Getting Started
